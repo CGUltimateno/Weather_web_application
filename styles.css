@@ -23,7 +23,7 @@ body {
     height: 100%;
 }
 .right-bar {
-    width: 30%;
+    width: 40%;
 }
 .search-bar{
     padding-top: 20px;
@@ -31,12 +31,11 @@ body {
 .search-bar input {
     padding: 8px;
     width: 700px;
-    height: 30px;
+    height: 25px;
     border: none;
     border-radius: 15px;
     margin-right: 10px;
     background-color: #202B3C;
-
 
 }
 
@@ -56,31 +55,33 @@ body {
 }
 .main-city{
     padding-left: 40px;
+    margin: 20px auto 0;
+
 }
 .main-rain{
     padding-left: 40px;
+    font-size: 12px;
 }
 .main-degree{
     padding-left: 40px;
-    padding-top: 30px;
     font-weight: bold;
-    font-size: 50px;
+    font-size: 40px;
 }
 .col-lg{
-    padding-top: 50px;
     display: flex;
-    height: 50%;
+    height: 20%;
 }
+
 .main-left-box{
     width: 50%;
+    height: 20%;
 }
 .main-right-box{
-    width: 250px;
-    height: 50px
+    padding-left: 300px;
 }
 
 .main-right-box img {
-    width: 100%;
+    width: 50%;
     height: auto;
 }
 .navbar img {
@@ -107,4 +108,184 @@ body {
 
 .navbar a:hover {
     background-color: #555;
+}
+
+.col-lg-2 {
+    display: flex;
+    flex-direction: column;
+    height: 165px;
+    width: 700px;
+    background-color: #202B3C;
+    margin-left: 8px;
+    border-radius: 30px;
+}
+
+.forecast-list {
+    display: flex;
+    flex-direction: row; /* Change to row */
+    list-style: none;
+    padding-left: 5px;
+    margin: 0;
+    padding-bottom: 50px;
+}
+
+.forecast-item {
+    flex: 1;
+    max-height: 100px;
+    text-align: center;
+    border-right: 1px solid #333f54;
+}
+
+
+.forecast-title {
+    font-size: 12px;
+    color: #9198A3;
+}
+
+.forecast-main {
+    color: #9198A3;
+    font-size: 12px;
+    padding-top: 5px;
+    padding-left: 30px;
+}
+
+.forecast-img {
+    width: 50px;
+    height: 50px;
+    /* Adjust dimensions as needed */
+}
+.forecast-item p {
+    margin: 0 auto;
+    padding-top: 5px;
+}
+
+.col-lg-3 {
+    margin-top: 12px;
+    height: 180px;
+    width: 700px;
+    background-color: #202B3C;
+    margin-left: 8px;
+    border-radius: 30px;
+}
+
+.forecast-info{
+    display: flex;
+    column-gap: 250px;
+}
+.row-1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    list-style: none;
+    padding-left: 35px;
+    margin: 0;
+}
+
+
+.condition-main {
+    padding-top: 20px;
+    color: #9198A3;
+    font-size: 12px;
+    padding-left: 30px;
+    margin-bottom: 15px;
+}
+
+.condition-img {
+    width: 25px;
+    height: 20px;
+}
+
+.col-sm-2{
+    display: flex;
+}
+
+.condition-title{
+    font-size: 13px;
+    color: #9198A3;
+    margin: 3px auto 0 10px;
+}
+
+.condition-degree {
+    font-size: 20px;
+    color: #9198A3;
+    padding-left: 20px;
+    font-weight: bolder;
+    margin: 15px auto;
+}
+
+.week-forecast {
+    height: 85vh;
+    width: 400px;
+    background-color: #202B3C;
+    padding-top: 20px;
+    margin-top: 40px;
+    margin-left: 20px;
+    text-align: center;
+    border-radius: 30px;
+}
+
+.week-forecast a {
+    display: block;
+    padding: 15px;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+.week-forecast img {
+    width: 40px;
+    height: 40px;
+}
+
+.week-forecast-main{
+    text-align: left;
+    font-size: 12px;
+    color: #9198A3;
+    font-weight: bold;
+    padding-left: 20px;
+}
+
+.row-3 {
+    display: flex;
+    justify-content: space-between; /* Distribute space between the columns */
+    align-items: center;
+    height: 70px;
+    border-bottom: 1px solid #333f54;
+}
+
+.row-3:last-child {
+    border-bottom: none; /* Remove border from the last row-3 element */
+}
+
+.col-sm-3 {
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1; /* Allow the columns to grow and fill available space */
+}
+.col-sm-4 {
+    margin-bottom: 0;
+    height: 60%;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+}
+.forecast-day{
+    text-align: left;
+    padding-left: 30px;
+    color: #9198A3;
+    font-size: 12px;
+    width: 80px;
+}
+.forecast-img{
+    text-align: left;
+    padding-left: 15px;
+    font-weight: bold;
+    font-size: 15px;
+}
+.forecast-temp{
+    text-align: left;
+    padding-left: 50px;
+    color: #9198A3;
+    font-size: 12px;
+    width: 80px;
 }
