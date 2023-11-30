@@ -43,7 +43,7 @@
         <div class="temperature">
             <h3 class="temp-title">WIND SPEED</h3>
         </div>
-        <div class="temp" id="speed">
+        <div class="temp" id="m_s-btn">
             <button class="speed-btn">km/h</button>
             <button class="speed-btn">m/s</button>
             <button class="speed-btn">Knots</button>
@@ -116,24 +116,109 @@
 </div>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // Selectable buttons logic
-        const selectableButtons = document.querySelectorAll(".unit-btn, .speed-btn, .pressure-btn");
+        function getSelectedUnit(category) {
+            return localStorage.getItem(`selected${category}Unit`);
+        }
 
-        selectableButtons.forEach(function (button) {
-            button.addEventListener("click", function () {
-                // Toggle the 'selected' class on each button
-                this.classList.toggle("selected");
+        function saveSelectedUnit(category, unit) {
+            localStorage.setItem(`selected${category}Unit`, unit);
+        }
 
-                // Handle logic based on the button's ID or other attributes
-                // You can access the button's ID using this.id
+        function setupUnitButtons(category, buttonSelector) {
+            const buttons = document.querySelectorAll(`${buttonSelector} .unit-btn`);
 
-                // For example, log the selected buttons
-                const selectedButtons = document.querySelectorAll(".selected");
-                console.log("Selected buttons:", selectedButtons);
+            const initialSelectedUnit = getSelectedUnit(category);
+            if (initialSelectedUnit) {
+                buttons.forEach(function (button) {
+                    if (button.innerText.toLowerCase() === initialSelectedUnit) {
+                        button.classList.add("selected");
+                    }
+                });
+            }
+
+            buttons.forEach(function (button) {
+                button.addEventListener("click", function () {
+                    buttons.forEach(function (btn) {
+                        btn.classList.remove("selected");
+                    });
+
+                    this.classList.toggle("selected");
+
+                    const selectedButton = document.querySelector(`${buttonSelector} .unit-btn.selected`);
+                    if (selectedButton) {
+                        const unit = selectedButton.innerText.toLowerCase();
+                        saveSelectedUnit(category, unit);
+                    }
+                });
             });
-        });
+        }
+
+        setupUnitButtons("Temperature", "#temp-btn");
+        setupUnitButtons("WindSpeed", "#m_s-btn");
+        setupUnitButtons("Precipitation", "#prec-btn");
+        setupUnitButtons("Distance", "#dis-btn");
+
+        function setupPressureButtons() {
+            const buttons = document.querySelectorAll("#pressure .pressure-btn");
+
+            const initialSelectedUnit = getSelectedUnit("Pressure");
+            if (initialSelectedUnit) {
+                buttons.forEach(function (button) {
+                    if (button.innerText.toLowerCase() === initialSelectedUnit) {
+                        button.classList.add("selected");
+                    }
+                });
+            }
+
+            buttons.forEach(function (button) {
+                button.addEventListener("click", function () {
+                    buttons.forEach(function (btn) {
+                        btn.classList.remove("selected");
+                    });
+
+                    this.classList.toggle("selected");
+
+                    const selectedButton = document.querySelector("#pressure .pressure-btn.selected");
+                    if (selectedButton) {
+                        const unit = selectedButton.innerText.toLowerCase();
+                        saveSelectedUnit("Pressure", unit);
+                    }
+                });
+            });
+        }
+
+        function setupSpeedButtons() {
+            const buttons = document.querySelectorAll("#m_s-btn .speed-btn");
+
+            const initialSelectedUnit = getSelectedUnit("Speed");
+            if (initialSelectedUnit) {
+                buttons.forEach(function (button) {
+                    if (button.innerText.toLowerCase() === initialSelectedUnit) {
+                        button.classList.add("selected");
+                    }
+                });
+            }
+
+            buttons.forEach(function (button) {
+                button.addEventListener("click", function () {
+                    buttons.forEach(function (btn) {
+                        btn.classList.remove("selected");
+                    });
+
+                    this.classList.toggle("selected");
+
+                    const selectedButton = document.querySelector("#m_s-btn .speed-btn.selected");
+                    if (selectedButton) {
+                        const unit = selectedButton.innerText.toLowerCase();
+                        saveSelectedUnit("Speed", unit);
+                    }
+                });
+            });
+        }
+
+        setupPressureButtons();
+        setupSpeedButtons();
     });
 </script>
-
 </body>
 </html>
