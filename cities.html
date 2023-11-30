@@ -5,75 +5,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="cities.css">
-    <title>cities</title>
-    <script src="https://kit.fontawesome.com/3dbaf486dd.js" crossorigin="anonymous"></script>
-
+    <title>Cities</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
 </head>
-
-<body class="body1">
-
-
-
-    <input type="text" class="searchbar" id="search" placeholder="search for cities">
-    
-    <div class="sidebar">
-    <a href=""><i class="fa-solid fa-umbrella" style="color: #4984e9;"></i></a>
-        <a href=".">
-            <i class="fa-solid fa-cloud-sun-rain"></i>
-            <p>weather</p>
-        </a>
-        <a href="cities.html">
-            <i class="fa-solid fa-list"></i>
-            <p>cities</p>
-        </a>
-        <a href=".">
-            <i class="fa-solid fa-map"></i>
-          <p>map</p>
-        </a>
-        <a href=".">
-            <i class="fa-solid fa-sliders"></i>
-            <p>settinges</p>
-        </a>
-    
+<body class="container">
+<div class="left-bar">
+        <div class="navbar">
+            <div class="icon">
+                <img src="imgs/4052984.png" alt="Weather Icon">
+            </div>
+            <div class="weathericon">
+                <a class="nav-icons" href="index.html"><i class="fa-solid fa-cloud-sun"></i>Weather</a>
+            </div>
+            <div class="citiesicon">
+                <a class="weather" href="cities.html"><i class="fa-solid fa-list"></i>Cities</a>
+            </div>
+            <div class="Settings">
+                <a class="nav-icons" href="settings.html"><i class="fa-solid fa-sliders"></i>Settings</a>
+            </div>
+        </div>
     </div>
-    
-
-    <div class="cities-all">
-        
-            <div class="cities-w">
-                <img src="/img/sunny.png"  width="50px">
+<div class="middle-bar">
+    <div class="search-bar">
+        <form class="search" role="searchfield" action="">
+            <label>
+                <input class="search-font" type="text" placeholder="Search for cities">
+            </label>
+        </form>
+    </div>
+    <div class="cities">
+        <img src="/imgs/sunny.png" class="city-img">
+        <div class="city-info">
+            <div class="city-name">
                 <h1 class="city">Madrid</h1>
                 <p class="time">10:11</p>
-                <h1 class="digree">31°</h1>
             </div>
-            <div class="cities-w">
-                <img src="/img/partly cloudy.png"  width="50px">
+            <div class="city-degree">
+                <h1 class="degree">31°</h1>
+            </div>
+        </div>
+    </div>
+    <div class="cities">
+        <img src="/imgs/partly cloudy.png" class="city-img">
+        <div class="city-info">
+            <div class="city-name">
                 <h1 class="city">Tokyo</h1>
                 <p class="time">11:11</p>
-                <h1 class="digree">29°</h1>
             </div>
-            <div class="cities-w">
-                <img src="/img/rain.png"  width="50px">
+            <div class="city-degree">
+                <h1 class="degree">29°</h1>
+            </div>
+        </div>
+    </div>
+    <div class="cities">
+        <img src="/imgs/rain.png"  class="city-img">
+        <div class="city-info">
+            <div class="city-name">
                 <h1 class="city">Vienna</h1>
                 <p class="time">12:11</p>
-                <h1 class="digree">36°</h1>
             </div>
-            <div class="cities-w">
-                <img src="/img/partly cloudy.png"  width="50px">
+            <div class="city-degree">
+                <h1 class="degree">36°</h1>
+            </div>
+        </div>
+    </div>
+    <div class="cities">
+        <img src="/imgs/partly cloudy.png"  class="city-img">
+        <div class="city-info">
+            <div class="city-name">
                 <h1 class="city">Cairo</h1>
                 <p class="time">01:11</p>
-                <h1 class="digree">35°</h1>
             </div>
-     </div>
-     
-           
-           
-           
+            <div class="city-degree">
+                <h1 class="degree">35°</h1>
+            </div>
+        </div>
     </div>
-    
-    
-    
-    
-    </body>
-    
-    </html>
+</div>
+</body>
+</html>

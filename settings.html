@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Settings</title>
+    <link rel="stylesheet" href="settings.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+</head>
+<body class="container">
+<div class="left-bar">
+    <div class="navbar" id="navbar">
+        <div class="icon">
+            <img src="imgs/4052984.png" alt="Weather Icon">
+        </div>
+        <div class="weathericon">
+            <a class="nav-icons" href="index.html"><i class="fa-solid fa-cloud-sun"></i>Weather</a>
+        </div>
+        <div class="citiesicon">
+            <a class="nav-icons" href="cities.html"><i class="fa-solid fa-list"></i>Cities</a>
+        </div>
+        <div class="Settings">
+            <a class="weather" href="settings.html"><i class="fa-solid fa-sliders"></i>Settings</a>
+        </div>
+    </div>
+</div>
+<div class="middle-bar">
+    <div class="search-bar">
+        <form class="search" role="searchfield" action="">
+            <label>
+                <input class="search-font" type="text" placeholder="Search for cities">
+            </label>
+        </form>
+    </div>
+    <h2 class="units-title">Units</h2>
+    <div class="units">
+        <div class="temperature">
+            <h3 class="temp-title">TEMPERATURE</h3>
+        </div>
+        <div class="temp" id="temp-btn">
+            <button class="unit-btn">Celsius</button>
+            <button class="unit-btn">Fahrenheit</button>
+        </div>
+        <div class="temperature">
+            <h3 class="temp-title">WIND SPEED</h3>
+        </div>
+        <div class="temp" id="speed">
+            <button class="speed-btn">km/h</button>
+            <button class="speed-btn">m/s</button>
+            <button class="speed-btn">Knots</button>
+        </div>
+        <div class="temperature">
+            <h3 class="temp-title">PRESSURE</h3>
+        </div>
+        <div class="temp" id="pressure">
+            <button class="pressure-btn">hPa</button>
+            <button class="pressure-btn">Inches</button>
+            <button class="pressure-btn">kPa</button>
+            <button class="pressure-btn">mm</button>
+        </div>
+        <div class="temperature">
+            <h3 class="temp-title">PRECIPITATION</h3>
+        </div>
+        <div class="temp" id="prec-btn">
+            <button class="unit-btn">Millimeter</button>
+            <button class="unit-btn">Inches</button>
+        </div>
+        <div class="temperature">
+            <h3 class="temp-title">DISTANCE</h3>
+        </div>
+        <div class="temp" id="dis-btn">
+            <button class="unit-btn">Kilometers</button>
+            <button class="unit-btn">Miles</button>
+        </div>
+    </div>
+    <h2 class="units-title">Notifications</h2>
+    <div class="notifications">
+        <div class="notify">
+            <div class="temperature">
+                <h3 class="notifications-title">Notifications</h3>
+                <p class="notify-desc">Be aware of the weather</p>
+            </div>
+            <div class="toggle-btn">
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <h2 class="units-title">General</h2>
+    <div class="general">
+        <div class="general-box1">
+            <div class="temperature">
+                <h3 class="general-title">12-Hour Time</h3>
+            </div>
+            <div class="toggle-btn">
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+        <div class="general-box">
+            <div class="temperature">
+                <h3 class="notifications-title">Location</h3>
+                <p class="notify-desc">Get weather of your location</p>
+            </div>
+            <div class="toggle-btn">
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Selectable buttons logic
+        const selectableButtons = document.querySelectorAll(".unit-btn, .speed-btn, .pressure-btn");
+
+        selectableButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                // Toggle the 'selected' class on each button
+                this.classList.toggle("selected");
+
+                // Handle logic based on the button's ID or other attributes
+                // You can access the button's ID using this.id
+
+                // For example, log the selected buttons
+                const selectedButtons = document.querySelectorAll(".selected");
+                console.log("Selected buttons:", selectedButtons);
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
