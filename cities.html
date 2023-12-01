@@ -90,7 +90,7 @@
     const format12HourTime = (hour24, minute) => {
         const suffix = hour24 >= 12 ? 'PM' : 'AM';
         let hour12 = hour24 > 12 ? hour24 - 12 : hour24;
-        hour12 = hour12 === 0 ? 12 : hour12; // handle 0 as 12 AM
+        hour12 = hour12 === 0 ? 12 : hour12; // handle 24 as 12 PM
         return `${hour12}:${minute} ${suffix}`;
     }
 
@@ -114,14 +114,16 @@
         updateTemperatureUnits(initialSelectedUnit);
 
         const is12Hour = localStorage.getItem('checkbox12HourTimeChecked') === 'true';
-        const timeElement = document.querySelector('.time');
-        const timeParts = timeElement.innerText.split(':');
-        const hour24 = parseInt(timeParts[0]);
-        const minute = timeParts[1];
+        const timeElements = document.querySelectorAll('.time');
+        timeElements.forEach(timeElement => {
+            const timeParts = timeElement.innerText.split(':');
+            const hour24 = parseInt(timeParts[0]);
+            const minute = timeParts[1];
 
-        if (is12Hour) {
-            timeElement.innerText = format12HourTime(hour24, minute);
-        }
+            if (is12Hour) {
+                timeElement.innerText = format12HourTime(hour24, minute);
+            }
+        });
     });
 </script>
 </body>

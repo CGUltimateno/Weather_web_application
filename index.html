@@ -47,33 +47,33 @@
             <h3 class="forecast-main">Today's Forecast</h3>
             <ul class="forecast-list">
                 <li class="forecast-item">
-                    <h1 class="forecast-title">6:00 AM</h1>
+                    <h1 class="forecast-title">06:00</h1>
                     <img class="forecast-img" src="imgs/cloudy.png" alt="Cloudy">
-                    <p class="forecast-degree">31°</p>
+                    <p class="forecast-degree">25°</p>
                 </li>
                 <li class="forecast-item">
-                    <h1 class="forecast-title">6:00 AM</h1>
-                    <img class="forecast-img" src="imgs/cloudy.png" alt="Cloudy">
-                    <p class="forecast-degree">31°</p>
+                    <h1 class="forecast-title">09:00</h1>
+                    <img class="forecast-img" src="imgs/partly%20cloudy.png" alt="Cloudy">
+                    <p class="forecast-degree">28°</p>
                 </li>
                 <li class="forecast-item">
-                    <h1 class="forecast-title">6:00 AM</h1>
-                    <img class="forecast-img" src="imgs/cloudy.png" alt="Cloudy">
-                    <p class="forecast-degree">31°</p>
+                    <h1 class="forecast-title">12:00</h1>
+                    <img class="forecast-img" src="imgs/sunny.png" alt="Cloudy">
+                    <p class="forecast-degree">33°</p>
                 </li>
                 <li class="forecast-item">
-                    <h1 class="forecast-title">6:00 AM</h1>
-                    <img class="forecast-img" src="imgs/cloudy.png" alt="Cloudy">
-                    <p class="forecast-degree">31°</p>
+                    <h1 class="forecast-title">15:00</h1>
+                    <img class="forecast-img" src="imgs/sunny.png" alt="Cloudy">
+                    <p class="forecast-degree">34°</p>
                 </li>
                 <li class="forecast-item">
-                    <h1 class="forecast-title">6:00 AM</h1>
-                    <img class="forecast-img" src="imgs/cloudy.png" alt="Cloudy">
-                    <p class="forecast-degree">31°</p>
+                    <h1 class="forecast-title">18:00</h1>
+                    <img class="forecast-img" src="imgs/sunny.png" alt="Cloudy">
+                    <p class="forecast-degree">32°</p>
                 </li>
                 <li class="forecast-item">
-                    <h1 class="forecast-title">6:00 AM</h1>
-                    <img class="forecast-img" src="imgs/cloudy.png" alt="Cloudy">
+                    <h1 class="forecast-title">21:00</h1>
+                    <img class="forecast-img" src="imgs/partly%20cloudy.png" alt="Cloudy">
                     <p class="forecast-degree">31°</p>
                 </li>
                 <!-- Add more forecast items as needed -->
@@ -165,8 +165,8 @@
                     <p class="forecast-day">Thursday</p>
                 </div>
                 <div class="col-sm-4">
-                    <img src="imgs/sunny.png" alt="sunny">
-                    <p class="forecast-img">Sunny</p>
+                    <img src="imgs/cloudy.png" alt="">
+                    <p class="forecast-img">Cloudy</p>
                 </div>
                 <div class="col-sm-3">
                     <p class="forecast-temp">37 /21</p>
@@ -177,8 +177,8 @@
                     <p class="forecast-day">Friday</p>
                 </div>
                 <div class="col-sm-4">
-                    <img src="imgs/sunny.png" alt="sunny">
-                    <p class="forecast-img">Sunny</p>
+                    <img src="imgs/cloudy.png" alt="">
+                    <p class="forecast-img">Cloudy</p>
                 </div>
                 <div class="col-sm-3">
                     <p class="forecast-temp">37 /21</p>
@@ -189,8 +189,8 @@
                     <p class="forecast-day">Saturday</p>
                 </div>
                 <div class="col-sm-4">
-                    <img src="imgs/sunny.png" alt="sunny">
-                    <p class="forecast-img">Sunny</p>
+                    <img src="imgs/rain.png" alt="">
+                    <p class="forecast-img">Rainy</p>
                 </div>
                 <div class="col-sm-3">
                     <p class="forecast-temp">37 /21</p>
@@ -215,6 +215,15 @@
     function getSelectedUnit(category) {
         return localStorage.getItem(`selected${category}Unit`);
     }
+
+    const format12HourTime = (hour24, minute) => {
+        const suffix = hour24 >= 12 ? 'PM' : 'AM';
+        let hour12 = hour24 > 12 ? hour24 - 12 : hour24;
+        hour12 = hour12 === 0 ? 12 : hour12; // handle 24 as 12 PM
+        return `${hour12}:${minute} ${suffix}`;
+    }
+
+
     document.addEventListener('DOMContentLoaded', () => {
         function updateTemperatureUnits(selectedUnit) {
             const degreeElements = document.querySelectorAll('.main-degree, .forecast-degree, .condition-degree');
@@ -248,7 +257,20 @@
         }
 
         const selectedSpeedUnit = getSelectedUnit('Speed');
-        updateSpeedUnits(selectedSpeedUnit);    });
+        updateSpeedUnits(selectedSpeedUnit);
+
+        const is12Hour = localStorage.getItem('checkbox12HourTimeChecked') === 'true';
+        const timeElements = document.querySelectorAll('.forecast-title');
+        timeElements.forEach(timeElement => {
+            const timeParts = timeElement.innerText.split(':');
+            const hour24 = parseInt(timeParts[0]);
+            const minute = timeParts[1];
+
+            if (is12Hour) {
+                timeElement.innerText = format12HourTime(hour24, minute);
+            }
+        });
+    });
 </script>
 </body>
 </html>
