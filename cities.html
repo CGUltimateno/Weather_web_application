@@ -38,7 +38,7 @@
         <div class="city-info">
             <div class="city-name">
                 <h1 class="city">Madrid</h1>
-                <p class="time">10:11</p>
+                <p class="time">20:11</p>
             </div>
             <div class="city-degree">
                 <h1 class="degree">31°</h1>
@@ -50,7 +50,7 @@
         <div class="city-info">
             <div class="city-name">
                 <h1 class="city">Tokyo</h1>
-                <p class="time">11:11</p>
+                <p class="time">21:11</p>
             </div>
             <div class="city-degree">
                 <h1 class="degree">29°</h1>
@@ -82,5 +82,47 @@
         </div>
     </div>
 </div>
+<script>
+    function getSelectedUnit(category) {
+        return localStorage.getItem(`selected${category}Unit`);
+    }
+
+    const format12HourTime = (hour24, minute) => {
+        const suffix = hour24 >= 12 ? 'PM' : 'AM';
+        let hour12 = hour24 > 12 ? hour24 - 12 : hour24;
+        hour12 = hour12 === 0 ? 12 : hour12; // handle 0 as 12 AM
+        return `${hour12}:${minute} ${suffix}`;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        function updateTemperatureUnits(selectedUnit) {
+            const degreeElements = document.querySelectorAll('.degree');
+
+            degreeElements.forEach(degreeElement => {
+                const currentTemperature = parseFloat(degreeElement.innerText);
+                const convertedTemperature = selectedUnit === 'celsius' ? currentTemperature : convertToFahrenheit(currentTemperature);
+                degreeElement.innerText = `${Math.round(convertedTemperature)}°`;
+            });
+        }
+
+        function convertToFahrenheit(celsiusTemperature) {
+            // Convert Celsius to Fahrenheit
+            return (celsiusTemperature * 9 / 5) + 32;
+        }
+
+        const initialSelectedUnit = getSelectedUnit('Temperature');
+        updateTemperatureUnits(initialSelectedUnit);
+
+        const is12Hour = localStorage.getItem('checkbox12HourTimeChecked') === 'true';
+        const timeElement = document.querySelector('.time');
+        const timeParts = timeElement.innerText.split(':');
+        const hour24 = parseInt(timeParts[0]);
+        const minute = timeParts[1];
+
+        if (is12Hour) {
+            timeElement.innerText = format12HourTime(hour24, minute);
+        }
+    });
+</script>
 </body>
 </html>

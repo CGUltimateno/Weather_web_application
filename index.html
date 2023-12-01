@@ -95,24 +95,23 @@
                         <i class="fa-solid fa-droplet"></i>
                         <h1 class="condition-title">Chance of Rain</h1>
                     </div>
-                    <p class="condition-degree">0%</p>
+                    <p class="chance-rain">0%</p>
                 </div>
             </div>
             <div class="row-2">
-                <!-- Second list with two items -->
                 <div class="col-sm-1">
                     <div class="col-sm-2">
                         <i class="fa-solid fa-wind"></i>
                         <h1 class="condition-title">Wind</h1>
                     </div>
-                    <p class="condition-degree">0.2 km/h</p>
+                    <p class="wind-speed">0.2 km/h</p>
                 </div>
                 <div class="col-sm-1">
                     <div class="col-sm-2">
                         <i class="fa-solid fa-sun"></i>
                         <h1 class="condition-title">UV Index</h1>
                     </div>
-                    <p class="condition-degree">31°</p>
+                    <p class="uv-index">3</p>
                 </div>
             </div>
             </div>
@@ -212,6 +211,45 @@
         </div>
     </div>
 </div>
+<script>
+    function getSelectedUnit(category) {
+        return localStorage.getItem(`selected${category}Unit`);
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+        function updateTemperatureUnits(selectedUnit) {
+            const degreeElements = document.querySelectorAll('.main-degree, .forecast-degree, .condition-degree');
+
+            degreeElements.forEach((degreeElement) => {
+                const degree = parseFloat(degreeElement.innerText);
+                const newDegree = selectedUnit === 'celsius' ? degree : convertCelsiusToFahrenheit(degree);
+                degreeElement.innerText = `${Math.round(newDegree)}°`;
+            });
+        }
+
+        function convertCelsiusToFahrenheit(celsius) {
+            return Math.round((celsius * 9) / 5 + 32);
+        }
+
+        const selectedTemperatureUnit = getSelectedUnit('Temperature');
+        updateTemperatureUnits(selectedTemperatureUnit);
+
+        function updateSpeedUnits(selectedUnit) {
+            const speedElements = document.querySelectorAll('.wind-speed');
+
+            speedElements.forEach((speedElement) => {
+                const speed = parseFloat(speedElement.innerText);
+                const newSpeed = selectedUnit === 'km/h' ? speed : convertKmToMiles(speed);
+                speedElement.innerText = `${newSpeed.toFixed(2)} ${selectedUnit}`;
+            });
+        }
+
+        function convertKmToMiles(km) {
+            return km / 1.609;
+        }
+
+        const selectedSpeedUnit = getSelectedUnit('Speed');
+        updateSpeedUnits(selectedSpeedUnit);    });
+</script>
 </body>
 </html>
 

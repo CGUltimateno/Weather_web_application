@@ -37,55 +37,24 @@
             <h3 class="temp-title">TEMPERATURE</h3>
         </div>
         <div class="temp" id="temp-btn">
-            <button class="unit-btn">Celsius</button>
-            <button class="unit-btn">Fahrenheit</button>
+            <button class="unit-btn button">Celsius</button>
+            <button class="unit-btn button">Fahrenheit</button>
         </div>
         <div class="temperature">
             <h3 class="temp-title">WIND SPEED</h3>
         </div>
         <div class="temp" id="m_s-btn">
-            <button class="speed-btn">km/h</button>
-            <button class="speed-btn">m/s</button>
-            <button class="speed-btn">Knots</button>
-        </div>
-        <div class="temperature">
-            <h3 class="temp-title">PRESSURE</h3>
-        </div>
-        <div class="temp" id="pressure">
-            <button class="pressure-btn">hPa</button>
-            <button class="pressure-btn">Inches</button>
-            <button class="pressure-btn">kPa</button>
-            <button class="pressure-btn">mm</button>
+            <button class="unit-btn button">km/h</button>
+            <button class="unit-btn button">m/s</button>
         </div>
         <div class="temperature">
             <h3 class="temp-title">PRECIPITATION</h3>
         </div>
         <div class="temp" id="prec-btn">
-            <button class="unit-btn">Millimeter</button>
-            <button class="unit-btn">Inches</button>
+            <button class="unit-btn button">Millimeter</button>
+            <button class="unit-btn button">Inches</button>
         </div>
-        <div class="temperature">
-            <h3 class="temp-title">DISTANCE</h3>
-        </div>
-        <div class="temp" id="dis-btn">
-            <button class="unit-btn">Kilometers</button>
-            <button class="unit-btn">Miles</button>
-        </div>
-    </div>
-    <h2 class="units-title">Notifications</h2>
-    <div class="notifications">
-        <div class="notify">
-            <div class="temperature">
-                <h3 class="notifications-title">Notifications</h3>
-                <p class="notify-desc">Be aware of the weather</p>
-            </div>
-            <div class="toggle-btn">
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                </label>
-            </div>
-        </div>
+
     </div>
     <h2 class="units-title">General</h2>
     <div class="general">
@@ -115,6 +84,10 @@
     </div>
 </div>
 <script>
+    function getSelectedUnit(category) {
+        return localStorage.getItem(`selected${category}Unit`);
+    }
+
     document.addEventListener("DOMContentLoaded", function () {
         function getSelectedUnit(category) {
             return localStorage.getItem(`selected${category}Unit`);
@@ -124,100 +97,43 @@
             localStorage.setItem(`selected${category}Unit`, unit);
         }
 
-        function setupUnitButtons(category, buttonSelector) {
-            const buttons = document.querySelectorAll(`${buttonSelector} .unit-btn`);
+        function setupButtons(category, buttonSelector) {
+            const buttons = document.querySelectorAll(`${buttonSelector} button`);
+            const selectedUnit = getSelectedUnit(category);
 
-            const initialSelectedUnit = getSelectedUnit(category);
-            if (initialSelectedUnit) {
-                buttons.forEach(function (button) {
-                    if (button.innerText.toLowerCase() === initialSelectedUnit) {
-                        button.classList.add("selected");
-                    }
-                });
-            }
+            buttons.forEach(button => {
+                // Add this condition to check the selected button
+                if (button.innerText.toLowerCase() === selectedUnit) {
+                    button.classList.add("selected");
+                }
 
-            buttons.forEach(function (button) {
                 button.addEventListener("click", function () {
-                    buttons.forEach(function (btn) {
-                        btn.classList.remove("selected");
-                    });
-
-                    this.classList.toggle("selected");
-
-                    const selectedButton = document.querySelector(`${buttonSelector} .unit-btn.selected`);
-                    if (selectedButton) {
-                        const unit = selectedButton.innerText.toLowerCase();
-                        saveSelectedUnit(category, unit);
-                    }
+                    buttons.forEach(button => button.classList.remove("selected"));
+                    this.classList.add("selected");
+                    saveSelectedUnit(category, this.innerText.toLowerCase());
                 });
             });
         }
+        setupButtons("Temperature", "#temp-btn");
+        setupButtons("Precipitation", "#prec-btn");
+        setupButtons("Speed", "#m_s-btn");
 
-        setupUnitButtons("Temperature", "#temp-btn");
-        setupUnitButtons("WindSpeed", "#m_s-btn");
-        setupUnitButtons("Precipitation", "#prec-btn");
-        setupUnitButtons("Distance", "#dis-btn");
+        function setupCheckbox(name, checkboxSelector) {
+            const checkbox = document.querySelector(checkboxSelector);
+            const itemKey = `checkbox${name}Checked`;
 
-        function setupPressureButtons() {
-            const buttons = document.querySelectorAll("#pressure .pressure-btn");
-
-            const initialSelectedUnit = getSelectedUnit("Pressure");
-            if (initialSelectedUnit) {
-                buttons.forEach(function (button) {
-                    if (button.innerText.toLowerCase() === initialSelectedUnit) {
-                        button.classList.add("selected");
-                    }
-                });
+            const initialChecked = localStorage.getItem(itemKey);
+            if (initialChecked) {
+                checkbox.checked = initialChecked === 'true';
             }
 
-            buttons.forEach(function (button) {
-                button.addEventListener("click", function () {
-                    buttons.forEach(function (btn) {
-                        btn.classList.remove("selected");
-                    });
-
-                    this.classList.toggle("selected");
-
-                    const selectedButton = document.querySelector("#pressure .pressure-btn.selected");
-                    if (selectedButton) {
-                        const unit = selectedButton.innerText.toLowerCase();
-                        saveSelectedUnit("Pressure", unit);
-                    }
-                });
+            checkbox.addEventListener('change', function () {
+                localStorage.setItem(itemKey, this.checked);
             });
         }
-
-        function setupSpeedButtons() {
-            const buttons = document.querySelectorAll("#m_s-btn .speed-btn");
-
-            const initialSelectedUnit = getSelectedUnit("Speed");
-            if (initialSelectedUnit) {
-                buttons.forEach(function (button) {
-                    if (button.innerText.toLowerCase() === initialSelectedUnit) {
-                        button.classList.add("selected");
-                    }
-                });
-            }
-
-            buttons.forEach(function (button) {
-                button.addEventListener("click", function () {
-                    buttons.forEach(function (btn) {
-                        btn.classList.remove("selected");
-                    });
-
-                    this.classList.toggle("selected");
-
-                    const selectedButton = document.querySelector("#m_s-btn .speed-btn.selected");
-                    if (selectedButton) {
-                        const unit = selectedButton.innerText.toLowerCase();
-                        saveSelectedUnit("Speed", unit);
-                    }
-                });
-            });
-        }
-
-        setupPressureButtons();
-        setupSpeedButtons();
+        setupCheckbox('12HourTime', '.general-box1 input[type="checkbox"]');
+        setupCheckbox('Location', '.general-box input[type="checkbox"]');
+        setupCheckbox('Notifications', '.notifications input[type="checkbox"]');
     });
 </script>
 </body>

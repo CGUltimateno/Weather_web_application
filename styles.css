@@ -213,6 +213,29 @@ body {
     margin: 15px auto;
 }
 
+.wind-speed{
+    font-size: 20px;
+    color: #9198A3;
+    padding-left: 20px;
+    font-weight: bolder;
+    margin: 15px auto;
+}
+
+.uv-index{
+    font-size: 20px;
+    color: #9198A3;
+    padding-left: 20px;
+    font-weight: bolder;
+    margin: 15px auto;
+}
+
+.chance-rain{
+    font-size: 20px;
+    color: #9198A3;
+    padding-left: 20px;
+    font-weight: bolder;
+    margin: 15px auto;
+}
 .week-forecast {
     height: 85vh;
     width: 400px;
