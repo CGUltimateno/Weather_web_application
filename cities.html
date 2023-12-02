@@ -26,63 +26,145 @@
         </div>
     </div>
 <div class="middle-bar">
-    <div class="search-bar">
-        <form class="search" role="searchfield" action="">
-            <label>
-                <input class="search-font" type="text" placeholder="Search for cities">
-            </label>
-        </form>
-    </div>
+    <br><br>
     <div class="cities">
-        <img src="/imgs/sunny.png" class="city-img">
+        <img id="img1" src="imgs/sunny.png" class="city-img">
         <div class="city-info">
             <div class="city-name">
-                <h1 class="city">Madrid</h1>
-                <p class="time">20:11</p>
+                <h1 id="city1" class="city">Cairo</h1>
             </div>
             <div class="city-degree">
-                <h1 class="degree">31°</h1>
+                <h2 style="font-weight: 200;" id="desc1">Sunny</h2>
+            </div>
+            <div class="city-degree">
+                <h1 id="temp1" class="degree">31°</h1>
             </div>
         </div>
     </div>
     <div class="cities">
-        <img src="/imgs/partly cloudy.png" class="city-img">
+        <img id="img2" src="imgs/sunny.png" class="city-img">
         <div class="city-info">
             <div class="city-name">
-                <h1 class="city">Tokyo</h1>
-                <p class="time">21:11</p>
+                <h1 id="city2" class="city">London</h1>
             </div>
             <div class="city-degree">
-                <h1 class="degree">29°</h1>
+                <h2 style="font-weight: 200;" id="desc2">Sunny</h2>
+            </div>
+            <div class="city-degree">
+                <h1 id="temp2" class="degree">31°</h1>
             </div>
         </div>
     </div>
     <div class="cities">
-        <img src="/imgs/rain.png"  class="city-img">
+        <img id="img3" src="imgs/sunny.png" class="city-img">
         <div class="city-info">
             <div class="city-name">
-                <h1 class="city">Vienna</h1>
-                <p class="time">12:11</p>
+                <h1 id="city3" class="city">New York</h1>
             </div>
             <div class="city-degree">
-                <h1 class="degree">36°</h1>
+                <h2 style="font-weight: 200;" id="desc3">Sunny</h2>
+            </div>
+            <div class="city-degree">
+                <h1 id="temp3" class="degree">31°</h1>
             </div>
         </div>
     </div>
     <div class="cities">
-        <img src="/imgs/partly cloudy.png"  class="city-img">
+        <img id="img4" src="imgs/sunny.png" class="city-img">
         <div class="city-info">
             <div class="city-name">
-                <h1 class="city">Cairo</h1>
-                <p class="time">01:11</p>
+                <h1 id="city4" class="city">Madrid</h1>
             </div>
             <div class="city-degree">
-                <h1 class="degree">35°</h1>
+                <h2 style="font-weight: 200;" id="desc4">Sunny</h2>
+            </div>
+            <div class="city-degree">
+                <h1 id="temp4" class="degree">31°</h1>
             </div>
         </div>
     </div>
+    <div class="cities">
+        <img id="img5" src="imgs/sunny.png" class="city-img">
+        <div class="city-info">
+            <div class="city-name">
+                <h1 id="city5" class="city">Paris</h1>
+            </div>
+            <div class="city-degree">
+                <h2 style="font-weight: 200;" id="desc5">Sunny</h2>
+            </div>
+            <div class="city-degree">
+                <h1 id="temp5" class="degree">31°</h1>
+            </div>
+        </div>
+    </div>
+    <div class="cities">
+        <img id="img6" src="imgs/sunny.png" class="city-img">
+        <div class="city-info">
+            <div class="city-name">
+                <h1 id="city6" class="city">Rome</h1>
+            </div>
+            <div class="city-degree">
+                <h2 style="font-weight: 200;" id="desc6">Sunny</h2>
+            </div>
+            <div class="city-degree">
+                <h1 id="temp6" class="degree">31°</h1>
+            </div>
+        </div>
+    </div>
+
+    
 </div>
 <script>
+
+    for (let i = 1; i <= 6; i++){
+        const cityName = document.getElementById("city" + i).innerHTML;
+        console.log(cityName);
+
+        const apiUrl = 'https://api.weatherbit.io/v2.0/current?city=' + cityName + '&key=3925b593c06c44cabcc9acbea78508ba';
+
+        fetch(apiUrl)
+          .then(response => {
+
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            return response.json();
+          })
+          .then(data => {
+
+            console.log(data);
+
+            document.getElementById("desc" + i).innerHTML = data.data[0].weather.description;
+            document.getElementById("temp" + i).innerHTML = data.data[0].temp + "°";
+
+            const code2 = data.data[0].weather.code;
+            console.log(code2);
+
+            if (code2 == 800){
+                document.getElementById("img" + i).src = 'imgs/sunny.png';
+                document.getElementById("img" + i).alt = desc;
+            } else if (code2 == 801, 802, 803){
+                document.getElementById("img" + i).src = 'imgs/partlyCloudy.png';
+                document.getElementById("img" + i).alt = desc;
+            } else if (code2 == 804, 700, 711, 721, 741, 751, 611, 612){
+                document.getElementById("img" + i).src = 'imgs/cloudy.png';
+                document.getElementById("img" + i).alt = desc;
+            } else if (code2 == 900, 522, 520, 511, 502, 501, 500, 300, 301, 302){
+                document.getElementById("img" + i).src = 'imgs/rain.png';
+                document.getElementById("img" + i).alt = desc;
+            } else{
+                document.getElementById("img" + i).src = 'imgs/partlyCloudy.png';
+                document.getElementById("img" + i).alt = desc;
+            }
+          })
+          .catch(error => {
+
+            console.error('Fetch error:', error);
+          });
+    }
+
+
     function getSelectedUnit(category) {
         return localStorage.getItem(`selected${category}Unit`);
     }
