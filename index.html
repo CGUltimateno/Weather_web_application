@@ -305,7 +305,7 @@
     }
 
     const currentDate = new Date().toISOString().split('T')[0];
-    const apiUrl = 'https://api.weatherbit.io/v2.0/forecast/hourly?city=Cairo&country=EG&key=3925b593c06c44cabcc9acbea78508ba&start_date=' + currentDate + '&hours=24';
+    const apiUrl = 'https://api.weatherbit.io/v2.0/forecast/hourly?city=Cairo&country=EG&key=3925b593c06c44cabcc9acbea78508ba&start_date=' + currentDate + '&hours=25';
 
 
         fetch(apiUrl)
@@ -330,12 +330,22 @@
             console.log(code);
 
             for (let i = 0; i < 7; i++) {
+
+                const x = time + (i+1);
+                let y;
+
+                if (x > 24) {
+                    y = x - 24;
+                } else{
+                    y = time + (i+1);
+                }
                 
-                document.getElementById("dayForecastTime" + (i+1)).innerHTML = time + (i+1) + ":00";
+                console.log("y = " + y);
+                document.getElementById("dayForecastTime" + (i+1)).innerHTML = y + ":00";
 
-                document.getElementById("dayForecastTemp" + (i+1)).innerHTML = data.data[time + (i+1)].temp + "°";
+                document.getElementById("dayForecastTemp" + (i+1)).innerHTML = data.data[y].temp + "°";
 
-                const code2 = data.data[time + (i+1)].weather.code;
+                const code2 = data.data[y].weather.code;
                 console.log(code2);
 
                 if (code2 == 800){
