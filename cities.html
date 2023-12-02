@@ -32,6 +32,7 @@
         <div class="city-info">
             <div class="city-name">
                 <h1 id="city1" class="city">Cairo</h1>
+                <p id="time1" class="time"></p>
             </div>
             <div class="city-degree">
                 <h2 style="font-weight: 200;" id="desc1">Sunny</h2>
@@ -46,6 +47,7 @@
         <div class="city-info">
             <div class="city-name">
                 <h1 id="city2" class="city">London</h1>
+                <p id="time2" class="time"></p>
             </div>
             <div class="city-degree">
                 <h2 style="font-weight: 200;" id="desc2">Sunny</h2>
@@ -60,6 +62,7 @@
         <div class="city-info">
             <div class="city-name">
                 <h1 id="city3" class="city">New York</h1>
+                <p id="time3" class="time"></p>
             </div>
             <div class="city-degree">
                 <h2 style="font-weight: 200;" id="desc3">Sunny</h2>
@@ -74,6 +77,7 @@
         <div class="city-info">
             <div class="city-name">
                 <h1 id="city4" class="city">Madrid</h1>
+                <p id="time4" class="time"></p>
             </div>
             <div class="city-degree">
                 <h2 style="font-weight: 200;" id="desc4">Sunny</h2>
@@ -88,6 +92,7 @@
         <div class="city-info">
             <div class="city-name">
                 <h1 id="city5" class="city">Paris</h1>
+                <p id="time5" class="time"></p>
             </div>
             <div class="city-degree">
                 <h2 style="font-weight: 200;" id="desc5">Sunny</h2>
@@ -115,6 +120,33 @@
 
             return response.json();
           })
+            .then(data => {
+
+                console.log(data);
+
+                let temp = data.data[0].temp;
+
+                const selectedTempUnit = localStorage.getItem('selectedTemperatureUnit');
+
+                if (selectedTempUnit === 'fahrenheit') {
+                    temp = temp * 9/5 + 32;
+                }
+
+                temp = Math.round(temp);
+
+                temp = temp + (selectedTempUnit === 'fahrenheit' ? '°F' : '°C');
+
+                document.getElementById("desc" + i).innerHTML = data.data[0].weather.description;
+                document.getElementById("temp" + i).innerHTML = temp + "°";
+
+                const timezone = data.data[0].timezone;
+
+                const now = new Date(new Date().toLocaleString('en-US', { timeZone: timezone }));
+
+                const time = now.getHours() + ':' + now.getMinutes();
+
+                document.getElementById('time' + i).innerHTML = time;
+            })
           .then(data => {
 
             console.log(data);

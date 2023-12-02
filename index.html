@@ -29,7 +29,6 @@
     <div class="row">
     <div class="col-lg">
         <div class="main-left-box">
-            <h3 style="font-weight: 100;">My Location:</h3>
             <h1 id="cCity" class="main-city"></h1>
             <p id="cRain" class="main-rain"></p>
             <h2 id="cTemp" class="main-degree"></h2>
@@ -291,11 +290,9 @@
     fetch(apiUrl)
         .then(response => response.ok ? response.json() : Promise.reject(`HTTP error! Status: ${response.status}`))
         .then(data => {
-            const today = new Date();
-            const time = today.getHours();
 
             for (let i = 0; i < 7; i++) {
-                const index = time + i;
+                const index = i * 3;
                 document.getElementById(`dayForecastTime${i + 1}`).innerHTML = `${index}:00`;
                 document.getElementById(`dayForecastTemp${i + 1}`).innerHTML = `${data.data[index].temp}°`;
                 setIcon(`dayForecastIcon${i + 1}`, data.data[index].weather.description, data.data[index].weather.code);
@@ -305,7 +302,7 @@
                 .then(response => response.ok ? response.json() : Promise.reject(`HTTP error! Status: ${response.status}`))
                 .then(data => {
                     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-                    let currentDay = today.getDay();
+                    let currentDay = new Date().getDay();
 
                     for (let i = 0; i < 7; i++) {
                         let nextDayIndex = (currentDay + i) % 7;
