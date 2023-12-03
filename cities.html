@@ -10,21 +10,24 @@
 </head>
 <body class="container">
 <div class="left-bar">
-        <div class="navbar">
-            <div class="icon">
-                <img src="imgs/4052984.png" alt="Weather Icon">
-            </div>
-            <div class="weathericon">
-                <a class="nav-icons" href="index.html"><i class="fa-solid fa-cloud-sun"></i>Weather</a>
-            </div>
-            <div class="citiesicon">
-                <a class="weather" href="cities.html"><i class="fa-solid fa-list"></i>Cities</a>
-            </div>
-            <div class="Settings">
-                <a class="nav-icons" href="settings.html"><i class="fa-solid fa-sliders"></i>Settings</a>
-            </div>
+    <div class="navbar">
+        <div class="icon">
+            <img src="imgs/4052984.png" alt="Weather Icon">
+        </div>
+        <div class="weathericon">
+            <a class="weather" href="index.html"><i class="fa-solid fa-cloud-sun"></i>Weather</a>
+        </div>
+        <div class="citiesicon">
+            <a class="nav-icons" href="cities.html"><i class="fa-solid fa-list"></i>Cities</a>
+        </div>
+        <div class="citiesicon">
+            <a class="map-icon" href="map.html"><i class="fa-solid fa-map"></i><br/>Map</a>
+        </div>
+        <div class="Settings">
+            <a class="nav-icons" href="settings.html"><i class="fa-solid fa-sliders"></i>Settings</a>
         </div>
     </div>
+</div>
 <div class="middle-bar">
     <br><br>
     <div class="cities">
@@ -115,96 +118,51 @@
     
 </div>
 <script>
+    async function fetchData(i) {
+        const cityName = document.querySelector(`#city${i}`).innerHTML;
+        const response = await fetch(`https://api.weatherbit.io/v2.0/current?city=${cityName}&key=3925b593c06c44cabcc9acbea78508ba`);
 
-    for (let i = 1; i <= 6; i++){
-        const cityName = document.getElementById("city" + i).innerHTML;
-        console.log(cityName);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
 
-        const apiUrl = 'https://api.weatherbit.io/v2.0/current?city=' + cityName + '&key=3925b593c06c44cabcc9acbea78508ba';
+        const data = await response.json();
+        const { weather, temp } = data.data[0];
+        const { description, code: code2 } = weather;
 
-        fetch(apiUrl)
-          .then(response => {
+        document.querySelector(`#desc${i}`).innerHTML = description;
+        document.querySelector(`#temp${i}`).innerHTML = `${temp}°`;
+        const weatherImages = { 800: 'sunny', 801: 'partlyCloudy', 802: 'partlyCloudy', 803: 'partlyCloudy', 804: 'cloudy', 700: 'cloudy', 711: 'cloudy', 721: 'cloudy',
+            741: 'cloudy', 751: 'cloudy', 611: 'cloudy', 612: 'cloudy', 900: 'rain', 522: 'rain', 520: 'rain', 511: 'rain', 502: 'rain', 501: 'rain', 500: 'rain',
+            300: 'rain', 301: 'rain', 302: 'rain' };
+        const imageName = weatherImages[code2] || 'partlyCloudy';
 
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            return response.json();
-          })
-          .then(data => {
-
-            console.log(data);
-
-            document.getElementById("desc" + i).innerHTML = data.data[0].weather.description;
-            document.getElementById("temp" + i).innerHTML = data.data[0].temp + "°";
-
-            const code2 = data.data[0].weather.code;
-            console.log(code2);
-
-            if (code2 == 800){
-                document.getElementById("img" + i).src = 'imgs/sunny.png';
-                document.getElementById("img" + i).alt = desc;
-            } else if (code2 == 801, 802, 803){
-                document.getElementById("img" + i).src = 'imgs/partlyCloudy.png';
-                document.getElementById("img" + i).alt = desc;
-            } else if (code2 == 804, 700, 711, 721, 741, 751, 611, 612){
-                document.getElementById("img" + i).src = 'imgs/cloudy.png';
-                document.getElementById("img" + i).alt = desc;
-            } else if (code2 == 900, 522, 520, 511, 502, 501, 500, 300, 301, 302){
-                document.getElementById("img" + i).src = 'imgs/rain.png';
-                document.getElementById("img" + i).alt = desc;
-            } else{
-                document.getElementById("img" + i).src = 'imgs/partlyCloudy.png';
-                document.getElementById("img" + i).alt = desc;
-            }
-          })
-          .catch(error => {
-
-            console.error('Fetch error:', error);
-          });
+        document.querySelector(`#img${i}`).src = `imgs/${imageName}.png`;
+        document.querySelector(`#img${i}`).alt = description;
     }
 
-
-    function getSelectedUnit(category) {
-        return localStorage.getItem(`selected${category}Unit`);
+    for (let i = 1; i <= 6; i++) {
+        fetchData(i).catch(error => console.error('Fetch error:', error));
     }
 
-    const format12HourTime = (hour24, minute) => {
-        const suffix = hour24 >= 12 ? 'PM' : 'AM';
-        let hour12 = hour24 > 12 ? hour24 - 12 : hour24;
-        hour12 = hour12 === 0 ? 12 : hour12; // handle 24 as 12 PM
-        return `${hour12}:${minute} ${suffix}`;
-    }
+    document.addEventListener("DOMContentLoaded", function () {
 
-    document.addEventListener('DOMContentLoaded', () => {
-        function updateTemperatureUnits(selectedUnit) {
-            const degreeElements = document.querySelectorAll('.degree');
+        const citiesElements = document.querySelectorAll('.cities-w');
 
-            degreeElements.forEach(degreeElement => {
-                const currentTemperature = parseFloat(degreeElement.innerText);
-                const convertedTemperature = selectedUnit === 'celsius' ? currentTemperature : convertToFahrenheit(currentTemperature);
-                degreeElement.innerText = `${Math.round(convertedTemperature)}°`;
+
+        const detElements = document.querySelectorAll('.det');
+
+
+        citiesElements.forEach((cityElement, index) => {
+            cityElement.addEventListener('click', function () {
+
+                detElements.forEach(detElement => {
+                    detElement.style.display = 'none';
+                });
+
+
+                detElements[index].style.display = 'block';
             });
-        }
-
-        function convertToFahrenheit(celsiusTemperature) {
-            // Convert Celsius to Fahrenheit
-            return (celsiusTemperature * 9 / 5) + 32;
-        }
-
-        const initialSelectedUnit = getSelectedUnit('Temperature');
-        updateTemperatureUnits(initialSelectedUnit);
-
-        const is12Hour = localStorage.getItem('checkbox12HourTimeChecked') === 'true';
-        const timeElements = document.querySelectorAll('.time');
-        timeElements.forEach(timeElement => {
-            const timeParts = timeElement.innerText.split(':');
-            const hour24 = parseInt(timeParts[0]);
-            const minute = timeParts[1];
-
-            if (is12Hour) {
-                timeElement.innerText = format12HourTime(hour24, minute);
-            }
         });
     });
 </script>

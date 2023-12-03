@@ -1,53 +1,80 @@
-body{
-    display: flex;
-    background-color: rgb(10, 16, 26);
+body {
+    padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #0B121E;
 }
-.searchbar{
-    background-color: rgb(32, 43, 59);
-    border-radius: 6px;
-    width:1010px;
-    height: 35px;
-    margin-left: 120px;
-    margin-top: 0px;
+
+.container {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    position: absolute;
-    color: #ffffff;
-    
-    }
-    .sidebar{
-    
-    background-color: rgb(32, 43, 59);
-    width: 80px;
-    height: 850px;
-    margin-left: 30px;
-    border-radius: 10px;
-    margin-top: 0px;
-    
-    }
-    .sidebar a:hover {
-        color: #f1f1f1;
-      }
-      .sidebar a {
-        padding: 50px 8px 8px 18px;
-        text-decoration: none;
-        font-size: 15px;
-        color: #818181;
-        display: block;
-        justify-content: center;
-        
-      }
-      .sidebar i{
-        justify-content: center;
-      }
-      .maap{
-position:absolute;
-width: 85%;
-   height: 740px;
-   border-radius: 45px;
-   margin-top: 35px;
-   color: #ffffff;
-   display: flex;
-   margin-top: 70px;
-  margin-left: 140px;
-      }
+    height: 100vh;
+    color: #fff;
+}
+.middle-bar {
+    width: 90%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.left-bar {
+    width: 10%;
+    height: 100%;
+}
+
+.navbar {
+    height: 94vh;
+    width: 85px;
+    background-color: #202B3C;
+    padding-top: 10px;
+    margin-top: 20px;
+    margin-left: 20px;
+    text-align: center;
+    border-radius: 30px;
+}
+
+.navbar a {
+    display: block;
+    padding: 15px;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.navbar i {
+    margin-bottom: 10px;
+}
+
+.navbar a:hover {
+    background-color: #555;
+}
+.navbar img {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 30px;
+}
+
+.nav-icons{
+    color: #818895;
+}
+
+.weather {
+    color: #F1F0F7;
+}
+
+.map-icon{
+    color: #818895;
+}
+.search-font{
+    color: white;
+}
+.maap{
+    position:absolute;
+    width: 80%;
+    height: 600px;
+    border-radius: 45px;
+    display: flex;
+    margin-left: 140px;
+}

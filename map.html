@@ -6,33 +6,29 @@
     <link rel="stylesheet" href="map.css">
     <title>Map</title>
     <script src="https://kit.fontawesome.com/3dbaf486dd.js" crossorigin="anonymous"></script>
-
 </head>
 <body>
-    
-    <input type="text" class="searchbar" id="search" placeholder="search for cities">
-    
-    <div class="sidebar">
-    <a href=""><i class="fa-solid fa-umbrella" style="color: #4984e9;"></i></a>
-        <a href=".">
-            <i class="fa-solid fa-cloud-sun-rain"></i>
-            <p>weather</p>
-        </a>
-        <a href="cities.html">
-            <i class="fa-solid fa-list"></i>
-            <p>cities</p>
-        </a>
-        <a href="map.html">
-            <i class="fa-solid fa-map"></i>
-          <p>map</p>
-        </a>
-        <a href=".">
-            <i class="fa-solid fa-sliders"></i>
-            <p>settinges</p>
-        </a>
-    
+<div class="container">
+    <div class="left-bar">
+        <div class="navbar">
+            <div class="icon">
+                <img src="imgs/4052984.png" alt="Weather Icon">
+            </div>
+            <div class="weathericon">
+                <a class="weather" href="index.html"><i class="fa-solid fa-cloud-sun"></i>Weather</a>
+            </div>
+            <div class="citiesicon">
+                <a class="nav-icons" href="cities.html"><i class="fa-solid fa-list"></i>Cities</a>
+            </div>
+            <div class="citiesicon">
+                <a class="map-icon" href="map.html"><i class="fa-solid fa-map"></i><br/>Map</a>
+            </div>
+            <div class="Settings">
+                <a class="nav-icons" href="settings.html"><i class="fa-solid fa-sliders"></i>Settings</a>
+            </div>
+        </div>
     </div>
-    <iframe src="https://www.ventusky.com/?p=30.0;31.4;5&l=temperature-2m&t=20231201/16" frameborder="0" class="maap"></iframe>
-    
+    <iframe src="https://www.ventusky.com/?p=30.0;31.4;5&l=temperature-2m&t=20231201/16" class="maap"></iframe>
+</div>
 </body>
 </html>
