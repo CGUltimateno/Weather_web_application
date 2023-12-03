@@ -14,7 +14,7 @@
             <img src="imgs/4052984.png" alt="Weather Icon">
         </div>
         <div class="weathericon">
-            <a class="weather" href="index.com"><i class="fa-solid fa-cloud-sun"></i>Weather</a>
+            <a class="weather" href="index.html"><i class="fa-solid fa-cloud-sun"></i>Weather</a>
         </div>
         <div class="citiesicon">
             <a class="nav-icons" href="cities.html"><i class="fa-solid fa-list"></i>Cities</a>
@@ -214,7 +214,23 @@
 </div>
 
 <script>
+    function toSelectedTempUnit(tempInCelsius) {
+        const selectedTempUnit = localStorage.getItem('selectedTemperatureUnit');
+        if (selectedTempUnit === 'fahrenheit') {
+            return (tempInCelsius * 9/5 + 32).toFixed(2) + "°F";
+        } else {
+            return tempInCelsius.toFixed(2) + "°C";
+        }
+    }   var tempUnit = localStorage.getItem('selectedTemperatureUnit') || 'celsius';
 
+    function toSelectedWindSpeedUnit(speedInMeterPerSec) {
+        const selectedWindSpeedUnit = localStorage.getItem('selectedSpeedUnit');
+        if (selectedWindSpeedUnit === 'km/h') {
+            return (speedInMeterPerSec * 3.6).toFixed(2) + " km/h"
+        } else {
+            return speedInMeterPerSec.toFixed(2) + " m/s";
+        }
+    }
     if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(async (position) => {
             const {latitude, longitude} = position.coords;
@@ -237,11 +253,13 @@
                         elemUpdate("cCity", city ?? town);
                         elemUpdate("cRain", "Chance of Rain: " + weatherData.data[0].precip + "%");
                         elemUpdate("cRain2", weatherData.data[0].precip + "%");
-                        elemUpdate("cTemp", weatherData.data[0].temp + "°");
-                        elemUpdate("appTemp", weatherData.data[0].app_temp + "°");
+                        let cTempInSelectedUnit = toSelectedTempUnit(weatherData.data[0].temp);
+                        elemUpdate("cTemp", `${cTempInSelectedUnit}°`);
+                        let appTempInSelectedUnit = toSelectedTempUnit(weatherData.data[0].temp);
+                        elemUpdate("appTemp", `${cTempInSelectedUnit}°`);
                         elemUpdate("uv", weatherData.data[0].uv);
-                        elemUpdate("wind", weatherData.data[0].wind_spd + " m/s");
-
+                        let windSpeedInSelectedUnit = toSelectedWindSpeedUnit(weatherData.data[0].wind_spd);
+                        elemUpdate("wind", windSpeedInSelectedUnit);
                         const {description, code} = weatherData.data[0].weather;
                         const imageElement = document.getElementById("mainImage");
                         imageElement.alt = description;
@@ -294,8 +312,8 @@
             for (let i = 0; i < 7; i++) {
                 const index = i * 3;
                 document.getElementById(`dayForecastTime${i + 1}`).innerHTML = `${index}:00`;
-                document.getElementById(`dayForecastTemp${i + 1}`).innerHTML = `${data.data[index].temp}°`;
-                setIcon(`dayForecastIcon${i + 1}`, data.data[index].weather.description, data.data[index].weather.code);
+                let dayForecastTempInSelectedUnit = toSelectedTempUnit(data.data[index].temp);
+                document.getElementById(`dayForecastTemp${i + 1}`).innerHTML = `${dayForecastTempInSelectedUnit}°`;                setIcon(`dayForecastIcon${i + 1}`, data.data[index].weather.description, data.data[index].weather.code);
             }
 
             fetch('https://api.weatherbit.io/v2.0/forecast/daily?city=Cairo&country=EG&key=3925b593c06c44cabcc9acbea78508ba')
@@ -308,8 +326,10 @@
                         let nextDayIndex = (currentDay + i) % 7;
                         document.getElementById(`weekForecastDay${i + 1}`).innerHTML = daysOfWeek[nextDayIndex];
                         document.getElementById(`weekForecastDesc${i + 1}`).innerHTML = data.data[i].weather.description;
-                        document.getElementById(`weekForecastTemp${i + 1}`).innerHTML = `${data.data[i].high_temp}°/${data.data[i].low_temp}°`;
+                        let weekForecastHighTempInSelectedUnit = toSelectedTempUnit(data.data[i].high_temp);
+                        let weekForecastLowTempInSelectedUnit = toSelectedTempUnit(data.data[i].low_temp);
                         setIcon(`weekForecastIcon${i + 1}`, data.data[i].weather.description, data.data[i].weather.code);
+                        document.getElementById(`weekForecastTemp${i + 1}`).innerHTML = `${weekForecastHighTempInSelectedUnit}°/${weekForecastLowTempInSelectedUnit}°`;
                     }
                 });
         });
